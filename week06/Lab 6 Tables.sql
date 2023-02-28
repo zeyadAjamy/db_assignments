@@ -91,116 +91,86 @@ from (
     )
 ) as rich_customer natural join customer;
 
-
-
 -- Exercise 2
-CREATE TABLE loan_books (
-  school VARCHAR(50),
-  teacher VARCHAR(30),
-  course VARCHAR(40),
-  room VARCHAR(10),
-  grade VARCHAR(15),
-  book VARCHAR(60),
-  publisher VARCHAR(30),
-  loanDate DATE,
-  PRIMARY KEY (? ? ?)
+
+create table schools(
+  schoolId INT PRIMARY KEY,
+  schoolName VARCHAR(255) NOT NULL
 );
-INSERT INTO loan_books
-VALUES (
-    'Horizon Education Institute',
-    'Chad Russell',
-    'Logical Thinking',
-    '1.A01',
-    '1st grade',
-    'Learning and teaching in early childhood education',
-    'BOA Editions',
-    '2010-09-09'
-  );
-INSERT INTO loan_books
-VALUES (
-    'Horizon Education Institute',
-    'Chad Russell',
-    'Writing',
-    '1.A01',
-    '1st grade',
-    'Preschool, N56',
-    'Taylor & Francis Publishing',
-    '2010-05-05'
-  );
-INSERT INTO loan_books
-VALUES (
-    'Horizon Education Institute',
-    'Chad Russell',
-    'Numerical thinking',
-    '1.A01',
-    '1st grade',
-    'Learning and teaching in early childhood education',
-    'BOA Editions',
-    2010 -05 -05
-  );
-INSERT INTO loan_books
-VALUES (
-    'Horizon Education Institute',
-    'E.F.Codd',
-    'Spatial, Temporal and Causal Thinking',
-    '1.B01',
-    '1st grade',
-    'Early Childhood Education N9',
-    'Prentice Hall',
-    '2010-05-06'
-  );
-INSERT INTO loan_books
-VALUES (
-    'Horizon Education Institute',
-    'E.F.Codd',
-    'Numerical thinking',
-    '1.B01',
-    '1st grade',
-    'Learning and teaching in early childhood education',
-    'BOA Editions',
-    '2010-05-06'
-  );
-INSERT INTO loan_books
-VALUES (
-    'Horizon Education Institute',
-    'Jones Smith',
-    'Writing',
-    '1.A01',
-    '2nd grade',
-    'Learning and teaching in early childhood education',
-    'BOA Editions',
-    '2010-09-09'
-  );
-INSERT INTO loan_books
-VALUES (
-    'Horizon Education Institute',
-    'Jones Smith',
-    'English',
-    '1.A01',
-    '2nd grade',
-    'Know how to educate: guide for Parents and Teachers',
-    'McGraw Hill',
-    '2010-05-05'
-  );
-INSERT INTO loan_books
-VALUES (
-    'Bright Institution',
-    'Adam Baker',
-    'Logical Thinking',
-    '2.B01',
-    '1st grade',
-    'Know how to educate: guide for Parents and Teachers',
-    'McGraw Hill',
-    '2010-12-18'
-  );
-INSERT INTO loan_books
-VALUES (
-    'Bright Institution',
-    'Adam Baker',
-    'Numerical Thinking',
-    '2.B01',
-    '1st grade',
-    'Learning and teaching in early childhood education',
-    'BOA Editions',
-    '2010-05-06'
-  );
+create table teachers(
+  teacherId INT PRIMARY KEY,
+  firstName VARCHAR(255) NOT NULL,
+  lastName VARCHAR(255) NOT NULL,
+  schoolId INT REFERENCES schools(schoolId)
+);
+create table courses (
+  courseId INT PRIMARY KEY,
+  courseName VARCHAR(255) NOT NULL,
+  teacherId INT REFERENCES teachers(teacherId),
+  room VARCHAR(255),
+  grade VARCHAR(255)
+);
+create table books(
+  bookId INT PRIMARY KEY,
+  bookName VARCHAR(255) NOT NULL,
+  publisher VARCHAR(255) NOT NULL
+);
+create table publisher(
+  publisher INT PRIMARY KEY,
+  publisherName VARCHAR(255) NOT NULL
+);
+create table loan(
+  id INT PRIMARY KEY,
+  bookId INT REFERENCES books(bookId),
+  date DATE,
+  courseId INT REFERENCES courses(courseId)
+);
+
+-- SQL
+
+INSERT INTO schools VALUES (1, 'Horizon Education Institute');
+INSERT INTO schools VALUES (2, 'Bright Institution');
+
+INSERT INTO teachers VALUES (1, 'Chad', 'Russell', 1);
+INSERT INTO teachers VALUES (2, 'E.F.', 'Codd', 1);
+INSERT INTO teachers VALUES (3, 'Jones', 'Smith', 1);
+INSERT INTO teachers VALUES (4, 'Adam', 'Baker', 2);
+
+INSERT INTO courses VALUES (1, 'Logical Thinking', 1, '1.A01', '1st grade');
+INSERT INTO courses VALUES (2, 'Writing', 1, '1.A01', '1st grade');
+INSERT INTO courses VALUES (3, 'Numerical thinking', 1, '1.A01', '1st grade');
+INSERT INTO courses VALUES (4, 'Spatial, Temporal and Causal Thinking', 2, '1.B01', '1st grade');
+INSERT INTO courses VALUES (5, 'Numerical thinking', 2, '1.B01', '1st grade');
+INSERT INTO courses VALUES (6, 'Writing', 3, '1.A01', '2nd grade');
+INSERT INTO courses VALUES (7, 'English', 3, '1.A01', '2nd grade');
+INSERT INTO courses VALUES (8, 'Logical Thinking', 4, '2.B01', '1st grade');
+INSERT INTO courses VALUES (9, 'Numerical Thinking', 4, '2.B01', '1st grade');
+
+INSERT INTO books VALUES (1, 'Learning and teaching in early childhood education', 1);
+INSERT INTO books VALUES (2, 'Preschool, N56', 1);
+INSERT INTO books VALUES (3, 'Early Childhood Education N9', 2);
+INSERT INTO books VALUES (4, 'Know how to educate: guide for Parents and Teachers', 3);
+INSERT INTO books VALUES (5, 'Learning and teaching in early childhood education', 1);
+INSERT INTO books VALUES (6, 'Know how to educate: guide for Parents and Teachers', 3);
+INSERT INTO books VALUES (7, 'Logical Thinking', 1);
+INSERT INTO books VALUES (8, 'Writing', 1);
+INSERT INTO books VALUES (9, 'Numerical thinking', 1);
+
+INSERT INTO publisher VALUES (1, 'BOA Editions');
+INSERT INTO publisher VALUES (2, 'Taylor & Francis Publishing');
+INSERT INTO publisher VALUES (3, 'Prentice Hall');
+INSERT INTO publisher VALUES (4, 'McGraw Hill');
+
+INSERT INTO loan VALUES (1, 7, '2010-09-09', 1);
+INSERT INTO loan VALUES (2, 8, '2010-05-05', 2);
+INSERT INTO loan VALUES (3, 9, '2010-05-05', 3);
+INSERT INTO loan VALUES (4, 3, '2010-05-06', 5);
+INSERT INTO loan VALUES (5, 9, '2010-05-06', 5);
+INSERT INTO loan VALUES (6, 8, '2010-09-09', 6);
+INSERT INTO loan VALUES (7, 4, '2010-05-05', 7);
+INSERT INTO loan VALUES (8, 7, '2010-12-18', 8);
+INSERT INTO loan VALUES (9, 9, '2010-05-06', 9);
+
+
+-- SQL Queries
+
