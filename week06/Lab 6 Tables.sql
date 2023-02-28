@@ -110,14 +110,14 @@ create table courses (
   room VARCHAR(255),
   grade VARCHAR(255)
 );
+create table publisher(
+  publisher_id INT PRIMARY KEY,
+  publisherName VARCHAR(255) NOT NULL
+);
 create table books(
   bookId INT PRIMARY KEY,
   bookName VARCHAR(255) NOT NULL,
-  publisher VARCHAR(255) NOT NULL
-);
-create table publisher(
-  publisher INT PRIMARY KEY,
-  publisherName VARCHAR(255) NOT NULL
+  publisher VARCHAR(255) REFERENCES publisher(publisher_id)
 );
 create table loan(
   id INT PRIMARY KEY,
