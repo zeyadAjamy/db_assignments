@@ -174,3 +174,7 @@ INSERT INTO loan VALUES (9, 9, '2010-05-06', 9);
 
 -- SQL Queries
 
+-- 1. For each publisher find the books, which have been loaned, and in which school it has been done
+
+
+-- 2. For each school, find the publisher of the book and the book itself that has been on loan the smallest time
