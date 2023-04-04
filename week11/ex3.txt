@@ -1,0 +1,6 @@
+Deleting a Brooklyn restaurant...
+
+Deleted 1 document(s).
+Deleting all Thai cuisines...
+
+Deleted 0 document(s).

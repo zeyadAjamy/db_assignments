@@ -1,0 +1,3 @@
+Inserting a restaurant into the database...
+
+Inserted restaurant with id:  642c2f2695781ca43ab9c3a5
