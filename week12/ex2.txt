@@ -14,12 +14,16 @@ RETURN f1.name, f2.name
 3. 
 
 MATCH (f:Fighter)
-OPTIONAL MATCH (f)-[:BEAT]->(opponent)
-WITH f, COUNT(DISTINCT [(f)-[:BEAT]->(opponent) | opponent]) AS wins, COUNT(DISTINCT (f)-[:BEAT|BEAT]->()) AS total_fights
-WHERE total_fights > 0
-RETURN f.name, wins, total_fights
-ORDER BY wins DESC, f.name
+OPTIONAL MATCH (f)-[r:BEAT]->()
+WITH f, COUNT(r) AS numFights
+RETURN f.name, numFights
+ORDER BY numFights DESC
 
-4.
+4. 
 
+MATCH (f:Fighter)
+OPTIONAL MATCH (f)-[r:BEAT]->(opponent)
+WITH f, COUNT(r) AS numWins, COUNT(opponent) AS numFights
+WHERE numWins = 0 OR numFights = 0
+RETURN f.name, numWins, numFights
 
