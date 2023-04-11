@@ -1,0 +1,25 @@
+1. 
+
+MATCH (f:Fighter)-[:BEAT]->()
+WHERE f.weight IN [155,170,185]
+RETURN f.weight, collect(DISTINCT f.name)
+
+2.
+
+MATCH (f1:Fighter)-[:BEAT]->(f2:Fighter)-[:BEAT]->(f1)
+WITH f1, f2, count(*) AS cnt
+WHERE cnt = 1
+RETURN f1.name, f2.name
+
+3. 
+
+MATCH (f:Fighter)
+OPTIONAL MATCH (f)-[:BEAT]->(opponent)
+WITH f, COUNT(DISTINCT [(f)-[:BEAT]->(opponent) | opponent]) AS wins, COUNT(DISTINCT (f)-[:BEAT|BEAT]->()) AS total_fights
+WHERE total_fights > 0
+RETURN f.name, wins, total_fights
+ORDER BY wins DESC, f.name
+
+4.
+
+

@@ -1,0 +1,48 @@
+CREATE (:Fighter {name: "Khabib Nurmagomedov", weight: 155})
+CREATE (:Fighter {name: "Rafael Dos Anjos", weight: 155})
+CREATE (:Fighter {name: "Neil Magny", weight: 170})
+CREATE (:Fighter {name: "Jon Jones", weight: 205})
+CREATE (:Fighter {name: "Daniel Cormier", weight: 205})
+CREATE (:Fighter {name: "Michael Bisping", weight: 185})
+CREATE (:Fighter {name: "Matt Hamill", weight: 185})
+CREATE (:Fighter {name: "Brandon Vera", weight: 205})
+CREATE (:Fighter {name: "Frank Mir", weight: 230})
+CREATE (:Fighter {name: "Brock Lesnar", weight: 230})
+CREATE (:Fighter {name: "Kelvin Gastelum", weight: 185})
+
+
+MATCH (fighter1:Fighter {name: "Khabib Nurmagomedov"}), (fighter2:Fighter {name: "Rafael Dos Anjos"})
+CREATE (fighter1)-[:BEAT]->(fighter2)
+
+MATCH (fighter1:Fighter {name: "Rafael Dos Anjos"}), (fighter2:Fighter {name: "Neil Magny"})
+CREATE (fighter1)-[:BEAT]->(fighter2)
+
+MATCH (fighter1:Fighter {name: "Jon Jones"}), (fighter2:Fighter {name: "Daniel Cormier"})
+CREATE (fighter1)-[:BEAT]->(fighter2)
+
+MATCH (fighter1:Fighter {name: "Michael Bisping"}), (fighter2:Fighter {name: "Matt Hamill"})
+CREATE (fighter1)-[:BEAT]->(fighter2)
+
+MATCH (fighter1:Fighter {name: "Jon Jones"}), (fighter2:Fighter {name: "Brandon Vera"})
+CREATE (fighter1)-[:BEAT]->(fighter2)
+
+MATCH (fighter1:Fighter {name: "Brandon Vera"}), (fighter2:Fighter {name: "Frank Mir"})
+CREATE (fighter1)-[:BEAT]->(fighter2)
+
+MATCH (fighter1:Fighter {name: "Frank Mir"}), (fighter2:Fighter {name: "Brock Lesnar"})
+CREATE (fighter1)-[:BEAT]->(fighter2)
+
+MATCH (fighter1:Fighter {name: "Neil Magny"}), (fighter2:Fighter {name: "Kelvin Gastelum"})
+CREATE (fighter1)-[:BEAT]->(fighter2)
+
+MATCH (fighter1:Fighter {name: "Kelvin Gastelum"}), (fighter2:Fighter {name: "Michael Bisping"})
+CREATE (fighter1)-[:BEAT]->(fighter2)
+
+MATCH (fighter1:Fighter {name: "Michael Bisping"}), (fighter2:Fighter {name: "Matt Hamill"})
+CREATE (fighter1)-[:BEAT]->(fighter2)
+
+MATCH (fighter1:Fighter {name: "Michael Bisping"}), (fighter2:Fighter {name: "Kelvin Gastelum"})
+CREATE (fighter1)-[:BEAT]->(fighter2)
+
+MATCH (fighter1:Fighter {name: "Matt Hamill"}), (fighter2:Fighter {name: "Jon Jones"})
+CREATE (fighter1)-[:BEAT]->(fighter2)
